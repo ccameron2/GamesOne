@@ -3,32 +3,27 @@
 
 #include "CustomMovementComponent.h"
 
-// Sets default values for this component's properties
-UCustomMovementComponent::UCustomMovementComponent()
+void UCustomMovementComponent::MoveForward(float AxisX)
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
+	FVector DeltaLocation = FVector(AxisX * MoveSpeed * GetWorld()->DeltaTimeSeconds, 0.0f, 0.0f);
+	GetOwner()->AddActorLocalOffset(DeltaLocation, true);
 }
 
-
-// Called when the game starts
-void UCustomMovementComponent::BeginPlay()
+void UCustomMovementComponent::Turn(float AxisZ)
 {
-	Super::BeginPlay();
-
-	// ...
-	
+	float RotateAmount = AxisZ * RotationSpeed * GetWorld()->DeltaTimeSeconds;
+	FRotator Rotation = FRotator(0.0f, RotateAmount, 0.0f);
+	FQuat DeltaRotation = FQuat(Rotation);
+	GetOwner()->AddActorLocalRotation(DeltaRotation, true);
 }
 
-
-// Called every frame
-void UCustomMovementComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UCustomMovementComponent::Fire()
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
+	UE_LOG(LogTemp, Warning, TEXT("Fire Pressed"));
 }
 
+void UCustomMovementComponent::Strafe(float AxisY)
+{
+	FVector DeltaLocation = FVector(0.0, AxisY * MoveSpeed * GetWorld()->DeltaTimeSeconds, 0.0f);
+	GetOwner()->AddActorLocalOffset(DeltaLocation, true);
+}

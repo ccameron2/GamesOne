@@ -12,17 +12,17 @@ class GAMESONE_API UCustomMovementComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
-	// Sets default values for this component's properties
-	UCustomMovementComponent();
+public:
+	void MoveForward(float AxisValue);
+	void Strafe(float AxisValue);
+	void Turn(float AxisValue);
+	void LookUp(float AxisValue);
+	void Fire();
+private:
+	UPROPERTY(EditAnywhere)
+		float MoveSpeed = 200.0f;
+	UPROPERTY(EditAnywhere)
+		float RotationSpeed = 500.0f;
 
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-		
 };
