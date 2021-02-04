@@ -23,10 +23,6 @@ APlayableCharacter::APlayableCharacter()
 	Camera = CreateAbstractDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
 
-	//FName WeaponSocket = TEXT("hand_r");
-	//FAttachmentTransformRules rules(EAttachmentRule::SnapToTarget,true);
-	//Gun->AttachToComponent(PawnMesh,rules, WeaponSocket);
-
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
 }
@@ -34,8 +30,10 @@ APlayableCharacter::APlayableCharacter()
 void APlayableCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
 	WeaponActor = GetWorld()->SpawnActor<AWeaponActor>(WeaponActorClass, this->GetActorLocation(), this->GetActorRotation());
+	FName fnWeaponSocket = TEXT("hand_rSocket");
+	FAttachmentTransformRules rules(EAttachmentRule::SnapToTarget,true);
+	WeaponActor->AttachToComponent(GetMesh(), rules, fnWeaponSocket);
 }
 void APlayableCharacter::Tick(float DeltaTime)
 {
@@ -76,4 +74,6 @@ void APlayableCharacter::LookUp(float AxisValue)
 void APlayableCharacter::Fire()
 {
 	WeaponActor->OnFire();
+	//implement raycasting code here to check if player is hit;
+	//implement dealing damage
 }

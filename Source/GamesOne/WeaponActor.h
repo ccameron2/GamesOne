@@ -29,10 +29,11 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "SpawnClass")
 		TSubclassOf<ABulletActor> BulletClass;
-
-private:
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* GunMesh;
+
+private:
+
 
 	UPROPERTY(EditAnywhere)
 		USceneComponent* ProjectileSpawnPoint;
