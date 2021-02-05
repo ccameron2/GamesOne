@@ -1,8 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "DamagingActor.h"
 #include "WeaponActor.h"
 #include "LandmineActor.h"
+#include "Components/SceneComponent.h"
 
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -28,25 +30,29 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		float MoveSpeed = 200.0f;
+
 	UPROPERTY(EditAnywhere)
 		float RotationSpeed = 500.0f;
+
+	UPROPERTY(EditAnywhere)
+		float HealthPoints = 100.0f;
 
 	void MoveForward(float AxisValue);
 	void Strafe(float AxisValue);
 	void Turn(float AxisValue);
 	void LookUp(float AxisValue);
 	void Fire();
+	void LandMine();
+	void DamagingActor();
 
-	UFUNCTION()
-		void SpawnLandMine();
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 private: 
-	
-
 
 	UPROPERTY(EditAnywhere)
 		USkeletalMeshComponent* CharacterMesh;
@@ -75,4 +81,15 @@ private:
 	UPROPERTY(EditAnywhere)
 		ALandmineActor* LandmineActor;
 
+	UPROPERTY(EditAnywhere)
+		USceneComponent* LandmineSpawnPoint;
+
+	UPROPERTY(EditAnywhere)
+		USceneComponent* DamagingActorSpawnPoint;
+
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<ADamagingActor> DamagingActorClass;
+
+	UPROPERTY(EditAnywhere)
+		ADamagingActor* TheDamagingActor;
 };

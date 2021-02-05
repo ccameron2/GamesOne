@@ -20,8 +20,15 @@ APlayableCharacter::APlayableCharacter()
 	SpringArm->SetRelativeLocation(FVector(-361.0f,-305.0f,113.0f));
 	SpringArm->SetupAttachment(PawnMesh);
 
-	Camera = CreateAbstractDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
+	SpringArm->SetupAttachment(PawnMesh);
+
+	LandmineSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Landmine Spawn Point"));
+	LandmineSpawnPoint->SetRelativeLocation(FVector(50.0f, 0.0f, -90.0f));
+
+	DamagingActorSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Damaging Actor Spawn Point"));
+	DamagingActorSpawnPoint->SetRelativeLocation(FVector(0.0f, 20.0f, 90.0f));
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
@@ -78,11 +85,39 @@ void APlayableCharacter::Fire()
 	//implement dealing damage
 }
 
-void APlayableCharacter::SpawnLandMine()
+
+void APlayableCharacter::LandMine()
 {
 	if (LandmineActorClass)
 	{
-		LandmineActor = GetWorld()->SpawnActor<ALandmineActor>(LandmineActorClass, this->GetActorLocation(), this->GetActorRotation());
+		LandmineActor = GetWorld()->SpawnActor<ALandmineActor>(LandmineActorClass, LandmineSpawnPoint->GetComponentLocation(), LandmineSpawnPoint->GetComponentRotation());
 		LandmineActor->SetOwner(this);
 	}
 }
+
+void APlayableCharacter::DamagingActor()
+{
+	if (DamagingActorClass)
+	{
+		TheDamagingActor = GetWorld()->SpawnActor<ADamagingActor>(DamagingActorClass, DamagingActorSpawnPoint->GetComponentLocation(), DamagingActorSpawnPoint->GetComponentRotation());
+		TheDamagingActor->SetOwner(this);
+
+		TheDamagingActor->SetActorScale3D(FVector(0.2f, 0.2f, 0.2f));
+	}
+}
+
+float APlayableCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Take Damage"));
+	if (HealthPoints > 0)
+	{
+		HealthPoints -= DamageAmount;
+	}
+	else
+	{
+		this->Destroy();
+		WeaponActor->Destroy();
+	}
+	return 0.0f;
+}
+

@@ -19,6 +19,9 @@ void ACustomPlayerController::SetupInputComponent()
 	InputComponent->BindAxis("Strafe", this, &ACustomPlayerController::CallStrafe);
 	InputComponent->BindAction("Jump", EInputEvent::IE_Pressed, this, &ACustomPlayerController::CallJump);
 	InputComponent->BindAxis("Look Up", this, &ACustomPlayerController::CallLookUp);
+	InputComponent->BindAction("Land Mine", EInputEvent::IE_Pressed, this, &ACustomPlayerController::CallLandMine);
+	InputComponent->BindAction("DamagingActor", EInputEvent::IE_Pressed, this, &ACustomPlayerController::CallDamagingActor);
+
 }
 
 void ACustomPlayerController::CallForward(float Value)
@@ -68,4 +71,22 @@ void ACustomPlayerController::CallLookUp(float Value)
 	{
 		MyPawn->LookUp(Value);
 	}
+}
+
+void ACustomPlayerController::CallLandMine()
+{
+	if (MyPawn)
+	{
+		MyPawn->LandMine();
+	}
+
+}
+
+void ACustomPlayerController::CallDamagingActor()
+{
+	if (MyPawn)
+	{
+		MyPawn->DamagingActor();
+	}
+
 }

@@ -3,6 +3,8 @@
 
 #include "BulletActor.h"
 
+#include "PlayableCharacter.h"
+
 // Sets default values
 ABulletActor::ABulletActor()
 {
@@ -21,17 +23,5 @@ ABulletActor::ABulletActor()
 
 }
 
-// Called when the game starts or when spawned
-void ABulletActor::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
 
-// Called every frame
-void ABulletActor::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
 
