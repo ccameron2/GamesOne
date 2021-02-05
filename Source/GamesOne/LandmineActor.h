@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "Kismet/GameplayStatics.h"
+#include "PlayableCharacter.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -25,5 +27,13 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* LandmineMesh;
+
+	UFUNCTION()
+		void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
+
+	UPROPERTY(EditAnywhere)
+		float DamageAmount = 10.0f;
+
+	AActor* ProjectileOwner = GetOwner();
 
 };

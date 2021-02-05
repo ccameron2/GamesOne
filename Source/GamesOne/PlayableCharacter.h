@@ -2,6 +2,7 @@
 
 #pragma once
 #include "WeaponActor.h"
+#include "LandmineActor.h"
 
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -36,6 +37,9 @@ public:
 	void LookUp(float AxisValue);
 	void Fire();
 
+	UFUNCTION()
+		void SpawnLandMine();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -64,4 +68,11 @@ private:
 
 	UPROPERTY(EditAnywhere)
 		AWeaponActor* WeaponActor;
+
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<ALandmineActor> LandmineActorClass;
+
+	UPROPERTY(EditAnywhere)
+		ALandmineActor* LandmineActor;
+
 };

@@ -77,3 +77,12 @@ void APlayableCharacter::Fire()
 	//implement raycasting code here to check if player is hit;
 	//implement dealing damage
 }
+
+void APlayableCharacter::SpawnLandMine()
+{
+	if (LandmineActorClass)
+	{
+		LandmineActor = GetWorld()->SpawnActor<ALandmineActor>(LandmineActorClass, this->GetActorLocation(), this->GetActorRotation());
+		LandmineActor->SetOwner(this);
+	}
+}

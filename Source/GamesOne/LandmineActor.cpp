@@ -10,6 +10,8 @@ ALandmineActor::ALandmineActor()
 	PrimaryActorTick.bCanEverTick = false;
 
 	LandmineMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Landmine Mesh"));
+	LandmineMesh->SetNotifyRigidBodyCollision(true);
+
 
 
 }
@@ -18,6 +20,7 @@ ALandmineActor::ALandmineActor()
 void ALandmineActor::BeginPlay()
 {
 	Super::BeginPlay();
+	OnActorHit.AddDynamic(this, &ALandmineActor::OnHit);
 	
 }
 
@@ -26,5 +29,14 @@ void ALandmineActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ALandmineActor::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
+{
+	UE_LOG(LogTemp, Warning, TEXT("OnHit"));
+	if (OtherActor->GetClass()->IsChildOf(APlayableCharacter::StaticClass()))
+	{
+		UGameplayStatics::ApplyDamage(OtherActor,DamageAmount,ProjectileOwner->GetInstigatorController(),this,UDamageType::StaticClass)
+	}
 }
 
