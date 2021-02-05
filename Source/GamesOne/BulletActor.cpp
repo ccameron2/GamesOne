@@ -17,6 +17,7 @@ ABulletActor::ABulletActor()
 	ProjectileMovement->InitialSpeed = MovementSpeed;
 	InitialLifeSpan = 5.0f;
 
+	
 
 }
 
