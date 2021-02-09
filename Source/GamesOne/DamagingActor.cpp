@@ -18,12 +18,15 @@ ADamagingActor::ADamagingActor()
 	ProjectileMovement->MaxSpeed = MovementSpeed;
 	ProjectileMovement->InitialSpeed = MovementSpeed;
 	InitialLifeSpan = 8.0f;
+
+
 }
 
 void ADamagingActor::BeginPlay()
 {
 	Super::BeginPlay();
 	OnActorHit.AddDynamic(this, &ADamagingActor::OnHit);
+
 }
 
 void ADamagingActor::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)

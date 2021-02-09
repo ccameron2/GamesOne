@@ -28,7 +28,7 @@ APlayableCharacter::APlayableCharacter()
 	LandmineSpawnPoint->SetRelativeLocation(FVector(50.0f, 0.0f, -90.0f));
 
 	DamagingActorSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Damaging Actor Spawn Point"));
-	DamagingActorSpawnPoint->SetRelativeLocation(FVector(0.0f, 20.0f, 90.0f));
+	//DamagingActorSpawnPoint->SetRelativeLocation(FVector(0.0f, 20.0f, 90.0f));
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
