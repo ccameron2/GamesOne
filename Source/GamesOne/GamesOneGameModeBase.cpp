@@ -9,27 +9,22 @@ void AGamesOneGameModeBase::BeginPlay()
 	Super::BeginPlay();
 	StartGame();
 }
-void AGamesOneGameModeBase::PointScored()
-{
-	UE_LOG(LogTemp, Warning, TEXT("PointScored!"));
-	//PointsScored++;
-	/*if (PointsScored <= 5)
-	{
-	}
-	else
-	{
-		GameOver(true);
-	}*/
-}
 
 void AGamesOneGameModeBase::StartGame()
 {
+	score = 0;
 	GetWorld()->GetTimerManager().SetTimer(EndGameTimer, this, &AGamesOneGameModeBase::TimeUp, GameDuration, false);
 }
 
-void AGamesOneGameModeBase::GameOver(bool flip)
+void AGamesOneGameModeBase::ScorePoint()
 {
-	if (flip) { UGameplayStatics::OpenLevel(GetWorld(), "EndLevel"); }
+	UE_LOG(LogTemp, Warning, TEXT("PointScored!"));
+	score++;
+}
+
+void AGamesOneGameModeBase::GameOver(bool gameWon)
+{
+	if (gameWon) { UGameplayStatics::OpenLevel(GetWorld(), "WinLevel"); }
 	else { UGameplayStatics::OpenLevel(GetWorld(), "LoseLevel"); }
 }
 

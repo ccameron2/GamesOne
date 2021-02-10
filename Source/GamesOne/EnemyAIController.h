@@ -43,7 +43,7 @@ private:
 
 	void TimeUp();
 
-	bool CheckFront(AActor* ActorToCheck);
+	//bool CheckFront(AActor* ActorToCheck);
 
 	APawn* AIPawn;
 

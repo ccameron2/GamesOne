@@ -37,6 +37,9 @@ public:
 	UPROPERTY(EditAnywhere)
 		float HealthPoints = 100.0f;
 
+	UFUNCTION(BlueprintPure)
+		int GetHealth();
+
 	void MoveForward(float AxisValue);
 	void Strafe(float AxisValue);
 	void Turn(float AxisValue);
@@ -92,4 +95,6 @@ private:
 
 	UPROPERTY(EditAnywhere)
 		ADamagingActor* TheDamagingActor;
+
+
 };

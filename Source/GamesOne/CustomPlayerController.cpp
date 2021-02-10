@@ -1,11 +1,21 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "CustomPlayerController.h"
 #include "CustomMovementComponent.h"
+#include "Blueprint/UserWidget.h"
 
 void ACustomPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	MyPawn = Cast<APlayableCharacter>(GetPawn());
+
+	NumberOfShots = 0;
+	HUDWidget = CreateWidget(this, HUDClass);
+
+	if (HUDWidget != nullptr)
+	{
+		HUDWidget->AddToViewport();
+	}
+
 }
 
 void ACustomPlayerController::SetupInputComponent()
@@ -45,6 +55,7 @@ void ACustomPlayerController::CallFire()
 {
 	if (MyPawn)
 	{
+		NumberOfShots++;
 		MyPawn->Fire();
 	}
 }
@@ -90,3 +101,14 @@ void ACustomPlayerController::CallDamagingActor()
 	}
 
 }
+
+int ACustomPlayerController::GetShots()
+{
+	return NumberOfShots;
+}
+
+int ACustomPlayerController::GetHealth()
+{
+	return MyPawn->GetHealth();
+}
+

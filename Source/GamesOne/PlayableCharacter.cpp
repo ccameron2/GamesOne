@@ -42,6 +42,10 @@ void APlayableCharacter::BeginPlay()
 	FAttachmentTransformRules rules(EAttachmentRule::SnapToTarget,true);
 	WeaponActor->AttachToComponent(GetMesh(), rules, fnWeaponSocket);
 }
+int APlayableCharacter::GetHealth()
+{
+	return HealthPoints;
+}
 void APlayableCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);

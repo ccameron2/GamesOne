@@ -20,7 +20,6 @@ class GAMESONE_API ACustomPlayerController : public APlayerController
 protected:
 	virtual void BeginPlay() override;
 public:
-	int numBangs;
 	virtual void SetupInputComponent();
 	APlayableCharacter* MyPawn;
 
@@ -33,4 +32,22 @@ private:
 	virtual void CallLookUp(float Value);
 	virtual void CallLandMine();
 	virtual void CallDamagingActor();
+
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<UUserWidget> HUDClass;
+
+	UPROPERTY(EditAnywhere)
+		int NumberOfShots;
+
+	UPROPERTY()
+		UUserWidget* HUDWidget;
+
+	UFUNCTION(BlueprintPure)
+		int GetShots();
+
+	UFUNCTION(BlueprintPure)
+		int GetHealth();
+
+	UPROPERTY(EditAnywhere)
+		int PlayerHealth;
 };
