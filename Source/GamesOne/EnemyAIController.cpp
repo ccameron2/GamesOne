@@ -35,19 +35,19 @@ void AEnemyAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
-	/*if (CheckFront(PlayerPawn) && LineOfSightTo(PlayerPawn))
+	if (CheckFront(PlayerPawn))
 	{
-		GetBlackboardComponent()->SetValueAsVector(TEXT("PlayerPosition"), PlayerPawn->GetActorLocation());
+		GetBlackboardComponent()->SetValueAsBool(TEXT("InFront"), true);
 
 		UE_LOG(LogTemp, Warning, TEXT("Can See"));
 	}
 	else
 	{
-		GetBlackboardComponent()->ClearValue(TEXT("PlayerPosition"));
+		GetBlackboardComponent()->SetValueAsBool(TEXT("InFront"), false);
 
 		UE_LOG(LogTemp, Warning, TEXT("Cant See"));
 
-	}*/
+	}
 
 }
 
@@ -76,15 +76,15 @@ void AEnemyAIController::TimeUp()
 	//RandomPatrol();
 }
 
-//bool AEnemyAIController::CheckFront(AActor* ActorToCheck)
-//{
-//	
-//	//FVector AIForwardVector = AIPawn->GetActorForwardVector(); //already nomalised
-//	//FVector PlayerPositionVector = PlayerPawn->GetActorLocation();
-//	//FVector AIPositionVector = AIPawn->GetActorLocation();
-//	//FVector AIToPlayerVector = PlayerPositionVector - AIPositionVector;
-//	//AIToPlayerVector.Normalize(); //this vector must be explicitly normalised
-//	//float DirectionDotProduct = FVector::DotProduct(AIToPlayerVector, AIForwardVector);
-//	//if (DirectionDotProduct > 0) return true;
-//	//else return false;
-//}
+bool AEnemyAIController::CheckFront(AActor* ActorToCheck)
+{
+	
+	FVector AIForwardVector = AIPawn->GetActorForwardVector(); //already nomalised
+	FVector PlayerPositionVector = PlayerPawn->GetActorLocation();
+	FVector AIPositionVector = AIPawn->GetActorLocation();
+	FVector AIToPlayerVector = PlayerPositionVector - AIPositionVector;
+	AIToPlayerVector.Normalize(); //this vector must be explicitly normalised
+	float DirectionDotProduct = FVector::DotProduct(AIToPlayerVector, AIForwardVector);
+	if (DirectionDotProduct > 0) return true;
+	else return false;
+}
