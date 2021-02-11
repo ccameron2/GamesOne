@@ -40,6 +40,7 @@ public:
 
 	UPROPERTY()
 		AGamesOneGameModeBase* GameModeRef;
+
 	UFUNCTION()
 		void OnFracture(const FVector& HitPoint, const FVector& HitDirection);
 

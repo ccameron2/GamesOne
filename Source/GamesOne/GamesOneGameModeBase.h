@@ -20,6 +20,8 @@ public:
 		void GameOver(bool gameWon);
 	UFUNCTION()
 		void ScorePoint();
+	UFUNCTION()
+		int GetPoints();
 
 private:
 	UFUNCTION()
@@ -32,5 +34,9 @@ private:
 		void TimeUp();
 	UPROPERTY()
 		int score;
+	UPROPERTY(EditAnywhere)
+		int maximumScore;
+	UPROPERTY(EditAnywhere)
+		FName NextLevelName;
 
 };

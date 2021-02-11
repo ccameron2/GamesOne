@@ -38,14 +38,10 @@ void AEnemyAIController::Tick(float DeltaTime)
 	if (CheckFront(PlayerPawn))
 	{
 		GetBlackboardComponent()->SetValueAsBool(TEXT("InFront"), true);
-
-		UE_LOG(LogTemp, Warning, TEXT("Can See"));
 	}
 	else
 	{
 		GetBlackboardComponent()->SetValueAsBool(TEXT("InFront"), false);
-
-		UE_LOG(LogTemp, Warning, TEXT("Cant See"));
 
 	}
 

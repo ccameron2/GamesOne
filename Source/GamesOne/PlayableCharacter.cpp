@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "PlayableCharacter.h"
+#include "BarrelActor.h"
+#include "CustomPlayerController.h"
 
 // Sets default values
 APlayableCharacter::APlayableCharacter()
@@ -41,6 +43,9 @@ void APlayableCharacter::BeginPlay()
 	FName fnWeaponSocket = TEXT("hand_rSocket");
 	FAttachmentTransformRules rules(EAttachmentRule::SnapToTarget,true);
 	WeaponActor->AttachToComponent(GetMesh(), rules, fnWeaponSocket);
+
+	GameModeRef = Cast<AGamesOneGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+
 }
 int APlayableCharacter::GetHealth()
 {
@@ -60,6 +65,11 @@ void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	PlayerInputComponent->BindAxis("Strafe", this, &APlayableCharacter::Strafe);
 	PlayerInputComponent->BindAction("Jump", EInputEvent::IE_Pressed, this, &APlayableCharacter::Jump);
 	PlayerInputComponent->BindAxis("Look Up", this, &APlayableCharacter::LookUp);*/
+}
+
+int APlayableCharacter::GetPoints()
+{
+	return GameModeRef->GetPoints();
 }
 
 void APlayableCharacter::MoveForward(float AxisValue)
@@ -87,6 +97,53 @@ void APlayableCharacter::Fire()
 	WeaponActor->OnFire();
 	//implement raycasting code here to check if player is hit;
 	//implement dealing damage
+
+	AController* ControllerRef = GetController();
+	FVector CameraLocation;
+	FRotator CameraRotation;
+	ControllerRef->GetPlayerViewPoint(CameraLocation, CameraRotation);
+	float CastRange = 10000.0f;
+	FVector End = CameraLocation + CameraRotation.Vector() * CastRange;
+
+	FHitResult Hit;
+	bool bDidHit = GetWorld()->LineTraceSingleByChannel(Hit,CameraLocation,End, ECC_Visibility);
+	float impulseForce = 1000.0f;
+
+	if (bDidHit)
+	{ 
+		if (Hit.GetActor() != nullptr)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Hit Something: %s"), *Hit.GetActor()->GetName());
+			UPrimitiveComponent* RootComp = Cast<UPrimitiveComponent>(Hit.GetActor()->GetRootComponent());
+			if (Cast<ABarrelActor>(Hit.GetActor()))
+			{	
+				RootComp->AddImpulse(CameraRotation.Vector() * impulseForce * RootComp->GetMass());
+				Cast<ABarrelActor>(Hit.GetActor())->Explode();
+			}
+			if (Cast<APlayableCharacter>(Hit.GetActor()))
+			{
+				UGameplayStatics::ApplyDamage(Hit.GetActor(), BulletDamage, GetInstigatorController(), this, UDamageType::StaticClass());
+			}
+			else
+			{
+				RootComp->AddImpulse(CameraRotation.Vector() * impulseForce * RootComp->GetMass());
+			}
+
+
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Hit Something"));
+		}
+		
+
+
+
+	}
+	else
+	{ 
+		UE_LOG(LogTemp, Warning, TEXT("Missed")); 
+	}
 }
 
 
@@ -119,8 +176,14 @@ float APlayableCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Dam
 	}
 	else
 	{
+		AController* PlayerController = GetController();
+		GameModeRef->ScorePoint();
 		this->Destroy();
 		WeaponActor->Destroy();
+		if (Cast<ACustomPlayerController>(PlayerController))
+		{
+			GameModeRef->GameOver(false);
+		}
 	}
 	return 0.0f;
 }

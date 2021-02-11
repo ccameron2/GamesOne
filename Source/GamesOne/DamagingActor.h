@@ -4,6 +4,7 @@
 
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "PhysicsEngine/RadialForceComponent.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -38,5 +39,18 @@ public:
 	UPROPERTY(EditAnywhere)
 		float DamageAmount = 20.0f;
 
+	UPROPERTY(EditAnywhere)
+		URadialForceComponent* ForceComp;
 
+	UFUNCTION()
+		void Explode();
+
+	UPROPERTY()
+		FTimerHandle ExplodeTimer;
+
+	UFUNCTION()
+		void TimeUp();
+
+	UPROPERTY(EditAnywhere)
+		float FuseTime = 5.0f;
 };

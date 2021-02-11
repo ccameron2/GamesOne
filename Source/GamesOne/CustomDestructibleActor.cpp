@@ -16,7 +16,7 @@ ACustomDestructibleActor::ACustomDestructibleActor()
 	BoxComponent->SetCollisionProfileName(TEXT("Trigger"));
 	BoxComponent->SetupAttachment(RootComponent);
 
-	GameModeRef = (AGamesOneGameModeBase*)(UGameplayStatics::GetGameMode(GetWorld()));
+	
 
 }
 
@@ -27,6 +27,7 @@ void ACustomDestructibleActor::BeginPlay()
 	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &ACustomDestructibleActor::OnOverlapBegin);
 	BoxComponent->OnComponentEndOverlap.AddDynamic(this, &ACustomDestructibleActor::OnOverlapEnd);
 	OnActorFracture.AddDynamic(this, &ACustomDestructibleActor::OnFracture);
+	GameModeRef = Cast<AGamesOneGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 }
 
 // Called every frame
@@ -39,7 +40,11 @@ void ACustomDestructibleActor::Tick(float DeltaTime)
 void ACustomDestructibleActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	UE_LOG(LogTemp, Warning, TEXT("OnOverlapBegin"));
-	//GameModeRef->ScorePoint();
+	if (GameModeRef != nullptr)
+	{
+		GameModeRef->ScorePoint();
+	}
+	else { UE_LOG(LogTemp, Warning, TEXT("Game Mode Was Null")); }
 
 }
 

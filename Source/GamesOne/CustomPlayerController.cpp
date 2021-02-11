@@ -109,6 +109,24 @@ int ACustomPlayerController::GetShots()
 
 int ACustomPlayerController::GetHealth()
 {
-	return MyPawn->GetHealth();
+	if (MyPawn != nullptr)
+	{
+		return MyPawn->GetHealth();
+	}
+	else
+	{
+		return 0;
+	}
 }
 
+int ACustomPlayerController::GetPoints()
+{
+	if (MyPawn != nullptr)
+	{
+		return MyPawn->GetPoints();
+	}
+	else
+	{
+		return 0;
+	}
+}

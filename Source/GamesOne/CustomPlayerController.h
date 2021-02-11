@@ -50,4 +50,9 @@ private:
 
 	UPROPERTY(EditAnywhere)
 		int PlayerHealth;
+
+	UFUNCTION(BlueprintPure)
+		int GetPoints();
+
+
 };

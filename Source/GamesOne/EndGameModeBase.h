@@ -23,5 +23,6 @@ public:
 	UPROPERTY()
 		FTimerHandle EndGameTimer;
 	UPROPERTY()
-		float GameDuration = 10.0f;
+		float GameDuration = 180.0f;
+
 };

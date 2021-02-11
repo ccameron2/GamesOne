@@ -10,8 +10,7 @@ ADamagingActor::ADamagingActor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	ActorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Actor Mesh"));
-
-	SetRootComponent(ActorMesh);
+	ActorMesh->SetupAttachment(RootComponent);
 	ActorMesh->SetSimulatePhysics(true);
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
@@ -20,12 +19,15 @@ ADamagingActor::ADamagingActor()
 	InitialLifeSpan = 8.0f;
 
 
+	ForceComp = CreateDefaultSubobject<URadialForceComponent>(TEXT("Force Component"));
+	ForceComp->SetupAttachment(ActorMesh);
 }
 
 void ADamagingActor::BeginPlay()
 {
 	Super::BeginPlay();
 	OnActorHit.AddDynamic(this, &ADamagingActor::OnHit);
+	GetWorld()->GetTimerManager().SetTimer(ExplodeTimer, this, &ADamagingActor::TimeUp, FuseTime, false);
 
 }
 
@@ -36,7 +38,25 @@ void ADamagingActor::OnHit(AActor* SelfActor, AActor* OtherActor, FVector Normal
 	{
 		AActor* ProjectileOwner = GetOwner();
 		UGameplayStatics::ApplyDamage(OtherActor, DamageAmount, ProjectileOwner->GetInstigatorController(), this, UDamageType::StaticClass());
-		SelfActor->Destroy();
+		if (Cast<ADamagingActor>(SelfActor))
+		{
+			Cast<ADamagingActor>(SelfActor)->Explode();
+		}
+		else
+		{
+			SelfActor->Destroy();
+		}
 	}
 }
+void ADamagingActor::Explode()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Explode"));
 
+	ForceComp->FireImpulse();
+	Destroy();
+}
+
+void ADamagingActor::TimeUp()
+{
+	Explode();
+}

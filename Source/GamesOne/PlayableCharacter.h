@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "GamesOneGameModeBase.h"
+
 #include "DamagingActor.h"
 #include "WeaponActor.h"
 #include "LandmineActor.h"
@@ -39,6 +41,9 @@ public:
 
 	UFUNCTION(BlueprintPure)
 		int GetHealth();
+
+	UFUNCTION(BlueprintPure)
+		int GetPoints();
 
 	void MoveForward(float AxisValue);
 	void Strafe(float AxisValue);
@@ -96,5 +101,10 @@ private:
 	UPROPERTY(EditAnywhere)
 		ADamagingActor* TheDamagingActor;
 
+	UPROPERTY(EditAnywhere)
+		float BulletDamage = 20.0f;
+
+	UPROPERTY(EditAnywhere)
+		AGamesOneGameModeBase* GameModeRef;
 
 };
