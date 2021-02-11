@@ -30,7 +30,6 @@ void ABarrelActor::Explode()
 void ABarrelActor::BeginPlay()
 {
 	Super::BeginPlay();
-	BarrelMesh->AddTorqueInRadians(FVector(0.0f, 0.0f, 100.0f) * ForceAmount * BarrelMesh->GetMass());
 
 }
 

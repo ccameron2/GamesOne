@@ -21,7 +21,9 @@ protected:
 	virtual void BeginPlay() override;
 public:
 	virtual void SetupInputComponent();
-	APlayableCharacter* MyPawn;
+
+	UPROPERTY()
+		class APlayableCharacter* MyPawn;
 
 private:
 	virtual void CallForward(float AxisValue);

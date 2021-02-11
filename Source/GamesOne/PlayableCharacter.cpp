@@ -2,7 +2,9 @@
 
 #include "PlayableCharacter.h"
 #include "BarrelActor.h"
+#include "EnemyAIController.h"
 #include "CustomPlayerController.h"
+#include "CustomDestructibleActor.h"
 
 // Sets default values
 APlayableCharacter::APlayableCharacter()
@@ -31,6 +33,9 @@ APlayableCharacter::APlayableCharacter()
 
 	DamagingActorSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Damaging Actor Spawn Point"));
 	//DamagingActorSpawnPoint->SetRelativeLocation(FVector(0.0f, 20.0f, 90.0f));
+
+	RaycastingCastPoint = CreateDefaultSubobject<USceneComponent>(TEXT("RaycastingPoint"));
+	RaycastingCastPoint->SetRelativeLocation(FVector(32.0f, 16.0f, 70.0f));
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
@@ -103,14 +108,27 @@ void APlayableCharacter::Fire()
 	FRotator CameraRotation;
 	ControllerRef->GetPlayerViewPoint(CameraLocation, CameraRotation);
 	float CastRange = 10000.0f;
-	FVector End = CameraLocation + CameraRotation.Vector() * CastRange;
-
 	FHitResult Hit;
-	bool bDidHit = GetWorld()->LineTraceSingleByChannel(Hit,CameraLocation,End, ECC_Visibility);
+	bool bDidHit;
+	if (Cast<AEnemyAIController>(ControllerRef))
+	{
+		APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+		FVector End = RaycastingCastPoint->GetComponentLocation() + RaycastingCastPoint->GetComponentRotation().Vector() * CastRange;
+
+		Cast<AEnemyAIController>(ControllerRef)->SetFocus(PlayerPawn);
+		bDidHit = GetWorld()->LineTraceSingleByChannel(Hit, RaycastingCastPoint->GetComponentLocation(), End, ECC_Visibility);
+
+	}
+	else
+	{
+		FVector End = CameraLocation + CameraRotation.Vector() * CastRange;
+		bDidHit = GetWorld()->LineTraceSingleByChannel(Hit, CameraLocation, End, ECC_Visibility);
+	}
 	float impulseForce = 1000.0f;
 
 	if (bDidHit)
 	{ 
+
 		if (Hit.GetActor() != nullptr)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Hit Something: %s"), *Hit.GetActor()->GetName());
@@ -119,6 +137,10 @@ void APlayableCharacter::Fire()
 			{	
 				RootComp->AddImpulse(CameraRotation.Vector() * impulseForce * RootComp->GetMass());
 				Cast<ABarrelActor>(Hit.GetActor())->Explode();
+			}
+			if (Cast<ACustomDestructibleActor>(Hit.GetActor()))
+			{
+				UGameplayStatics::ApplyDamage(Hit.GetActor(), BulletDamage, GetInstigatorController(), this, UDamageType::StaticClass());
 			}
 			if (Cast<APlayableCharacter>(Hit.GetActor()))
 			{

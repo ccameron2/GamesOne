@@ -3,6 +3,7 @@
 #pragma once
 #include "GamesOneGameModeBase.h"
 
+
 #include "DamagingActor.h"
 #include "WeaponActor.h"
 #include "LandmineActor.h"
@@ -55,28 +56,6 @@ public:
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-private: 
-
-	UPROPERTY(EditAnywhere)
-		USkeletalMeshComponent* CharacterMesh;
-
-	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* PawnMesh;
-
-	UPROPERTY(EditAnywhere)
-		UCameraComponent* Camera;
-
-	UPROPERTY(EditAnywhere)
-		USpringArmComponent* SpringArm;
-
-	UPROPERTY(EditAnywhere)
-		UCustomMovementComponent* PawnMovement;
-
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AWeaponActor> WeaponActorClass;
 
@@ -106,5 +85,30 @@ private:
 
 	UPROPERTY(EditAnywhere)
 		AGamesOneGameModeBase* GameModeRef;
+
+	UPROPERTY(EditAnywhere)
+		USceneComponent* RaycastingCastPoint;
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+private: 
+
+	UPROPERTY(EditAnywhere)
+		USkeletalMeshComponent* CharacterMesh;
+
+	UPROPERTY(EditAnywhere)
+		UStaticMeshComponent* PawnMesh;
+
+	UPROPERTY(EditAnywhere)
+		UCameraComponent* Camera;
+
+	UPROPERTY(EditAnywhere)
+		USpringArmComponent* SpringArm;
+
+	UPROPERTY(EditAnywhere)
+		UCustomMovementComponent* PawnMovement;
+
 
 };

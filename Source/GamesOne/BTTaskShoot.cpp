@@ -13,10 +13,8 @@ EBTNodeResult::Type UBTTaskShoot::ExecuteTask(UBehaviorTreeComponent& OwnerComp,
 	{
 		return EBTNodeResult::Failed;
 	}
-
 	AIActor = Cast<APlayableCharacter>(OwnerComp.GetAIOwner()->GetPawn());
 	AIActor->Fire();
-
 	return EBTNodeResult::Succeeded;
 
 }

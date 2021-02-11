@@ -4,20 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "BarrelActor.generated.h"
+#include "ShootableActor.generated.h"
 
 class URadialForceComponent;
 
 UCLASS()
-class GAMESONE_API ABarrelActor : public AActor
+class GAMESONE_API AShootableActor : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ABarrelActor();
-
-	void Explode();
+	AShootableActor();
 
 protected:
 	// Called when the game starts or when spawned
@@ -26,16 +24,12 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
 private:
 	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* BarrelMesh;
+		UStaticMeshComponent* ActorMesh;
+
 	UPROPERTY(EditAnywhere)
-		URadialForceComponent* ForceComp;
-	UPROPERTY(EditAnywhere)
-		float ForceAmount = 990.0f;
+		float ForceAmount = 950.0f;
 	UPROPERTY(EditAnywhere)
 		float TorqueAmount = 10.0f;
-
-
 };
