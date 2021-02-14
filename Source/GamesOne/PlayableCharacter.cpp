@@ -5,6 +5,7 @@
 #include "EnemyAIController.h"
 #include "CustomPlayerController.h"
 #include "CustomDestructibleActor.h"
+#include "ShootableActor.h"
 
 // Sets default values
 APlayableCharacter::APlayableCharacter()
@@ -135,20 +136,24 @@ void APlayableCharacter::Fire()
 			UPrimitiveComponent* RootComp = Cast<UPrimitiveComponent>(Hit.GetActor()->GetRootComponent());
 			if (Cast<ABarrelActor>(Hit.GetActor()))
 			{	
-				RootComp->AddImpulse(CameraRotation.Vector() * impulseForce * RootComp->GetMass());
+				//RootComp->AddImpulse(CameraRotation.Vector() * impulseForce * RootComp->GetMass());
 				Cast<ABarrelActor>(Hit.GetActor())->Explode();
 			}
-			if (Cast<ACustomDestructibleActor>(Hit.GetActor()))
+			else if (Cast<ACustomDestructibleActor>(Hit.GetActor()))
 			{
 				UGameplayStatics::ApplyDamage(Hit.GetActor(), BulletDamage, GetInstigatorController(), this, UDamageType::StaticClass());
 			}
-			if (Cast<APlayableCharacter>(Hit.GetActor()))
+			else if (Cast<APlayableCharacter>(Hit.GetActor()))
 			{
 				UGameplayStatics::ApplyDamage(Hit.GetActor(), BulletDamage, GetInstigatorController(), this, UDamageType::StaticClass());
+			}
+			else if (Cast<AShootableActor>(Hit.GetActor()))
+			{
+				RootComp->AddImpulse(CameraRotation.Vector() * impulseForce * RootComp->GetMass());
 			}
 			else
 			{
-				RootComp->AddImpulse(CameraRotation.Vector() * impulseForce * RootComp->GetMass());
+				//Do nothing
 			}
 
 
@@ -199,7 +204,10 @@ float APlayableCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Dam
 	else
 	{
 		AController* PlayerController = GetController();
-		GameModeRef->ScorePoint();
+		if (Cast<AEnemyAIController>(PlayerController))
+		{
+			GameModeRef->ScorePoint();
+		}		
 		this->Destroy();
 		WeaponActor->Destroy();
 		if (Cast<ACustomPlayerController>(PlayerController))

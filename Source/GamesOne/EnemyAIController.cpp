@@ -26,8 +26,8 @@ void AEnemyAIController::BeginPlay()
 	{
 		RunBehaviorTree(EnemyBehavior);
 	}
-	GetBlackboardComponent()->SetValueAsVector(TEXT("LookoutPosition"), LookoutPoint->GetActorLocation());
-	GetBlackboardComponent()->SetValueAsVector(TEXT("HomePosition"), AIPawn->GetActorLocation());
+	/*GetBlackboardComponent()->SetValueAsVector(TEXT("LookoutPosition"), LookoutPoint->GetActorLocation());
+	GetBlackboardComponent()->SetValueAsVector(TEXT("HomePosition"), AIPawn->GetActorLocation());*/
 
 }
 

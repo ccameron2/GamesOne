@@ -30,7 +30,6 @@ void ABarrelActor::Explode()
 void ABarrelActor::BeginPlay()
 {
 	Super::BeginPlay();
-
 }
 
 // Called every frame

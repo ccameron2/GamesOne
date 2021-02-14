@@ -2,7 +2,6 @@
 
 #pragma once
 #include "Components/BoxComponent.h"
-#include "GamesOneGameModeBase.h"
 
 #include "CoreMinimal.h"
 #include "DestructibleActor.h"
@@ -37,9 +36,6 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		UBoxComponent* BoxComponent;
-
-	UPROPERTY()
-		AGamesOneGameModeBase* GameModeRef;
 
 	UFUNCTION()
 		void OnFracture(const FVector& HitPoint, const FVector& HitDirection);
