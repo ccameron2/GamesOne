@@ -25,7 +25,7 @@ void AShootableActor::BeginPlay()
 void AShootableActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	ActorMesh->AddForce(GetActorUpVector() * ForceAmount * ActorMesh->GetMass());
+	//ActorMesh->AddForce(GetActorUpVector() * ForceAmount * ActorMesh->GetMass());
 
 }
 

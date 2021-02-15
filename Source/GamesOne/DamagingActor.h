@@ -52,5 +52,5 @@ public:
 		void TimeUp();
 
 	UPROPERTY(EditAnywhere)
-		float FuseTime = 5.0f;
+		float FuseTime = 1.0f;
 };

@@ -17,8 +17,6 @@ ADamagingActor::ADamagingActor()
 	ProjectileMovement->MaxSpeed = MovementSpeed;
 	ProjectileMovement->InitialSpeed = MovementSpeed;
 	InitialLifeSpan = 8.0f;
-
-
 	ForceComp = CreateDefaultSubobject<URadialForceComponent>(TEXT("Force Component"));
 	ForceComp->SetupAttachment(ActorMesh);
 }
@@ -38,22 +36,21 @@ void ADamagingActor::OnHit(AActor* SelfActor, AActor* OtherActor, FVector Normal
 	{
 		AActor* ProjectileOwner = GetOwner();
 		UGameplayStatics::ApplyDamage(OtherActor, DamageAmount, ProjectileOwner->GetInstigatorController(), this, UDamageType::StaticClass());
-		if (Cast<ADamagingActor>(SelfActor))
-		{
-			Cast<ADamagingActor>(SelfActor)->Explode();
-		}
-		else
-		{
-			SelfActor->Destroy();
-		}
 	}
 }
 void ADamagingActor::Explode()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Explode"));
+	if (ForceComp != nullptr)
+	{
 
-	ForceComp->FireImpulse();
-	Destroy();
+		//ForceComp->FireImpulse();
+		//Destroy();
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("ForceComp is Null"));
+	}
 }
 
 void ADamagingActor::TimeUp()
