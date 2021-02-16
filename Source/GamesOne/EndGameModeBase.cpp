@@ -17,5 +17,5 @@ void AEndGameModeBase::StartGame()
 
 void AEndGameModeBase::TimeUp()
 {
-	UGameplayStatics::OpenLevel(GetWorld(), "LoseLevel");
+	UGameplayStatics::OpenLevel(GetWorld(), "StartLevel");
 }

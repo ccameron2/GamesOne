@@ -39,4 +39,5 @@ private:
 	UPROPERTY(EditAnywhere)
 		FName NextLevelName;
 
+
 };

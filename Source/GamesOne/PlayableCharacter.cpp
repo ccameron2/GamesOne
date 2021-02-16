@@ -194,6 +194,8 @@ void APlayableCharacter::DamagingActor()
 	}
 }
 
+
+
 float APlayableCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Take Damage"));

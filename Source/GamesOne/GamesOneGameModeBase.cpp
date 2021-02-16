@@ -44,3 +44,4 @@ int AGamesOneGameModeBase::GetPoints()
 {
 	return score;
 }
+

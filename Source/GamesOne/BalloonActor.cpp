@@ -10,6 +10,7 @@ ABalloonActor::ABalloonActor()
 	PrimaryActorTick.bCanEverTick = true;
 	BalloonMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Balloon Mesh"));
 	BalloonMesh->SetupAttachment(RootComponent);
+
 }
 
 // Called when the game starts or when spawned

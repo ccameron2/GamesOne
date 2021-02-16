@@ -26,5 +26,5 @@ public:
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* BalloonMesh;
 	UPROPERTY(EditAnywhere)
-		float ForceAmount = 995;
+		float ForceAmount = 1100;
 };

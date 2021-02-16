@@ -11,7 +11,7 @@ ADamagingActor::ADamagingActor()
 	PrimaryActorTick.bCanEverTick = true;
 	ActorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Actor Mesh"));
 	ActorMesh->SetupAttachment(RootComponent);
-	ActorMesh->SetSimulatePhysics(true);
+	SetRootComponent(ActorMesh);
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
 	ProjectileMovement->MaxSpeed = MovementSpeed;
