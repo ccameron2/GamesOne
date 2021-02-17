@@ -12,13 +12,14 @@ ADamagingActor::ADamagingActor()
 	ActorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Actor Mesh"));
 	ActorMesh->SetupAttachment(RootComponent);
 	SetRootComponent(ActorMesh);
-
+	InitialLifeSpan = 5;
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
 	ProjectileMovement->MaxSpeed = MovementSpeed;
 	ProjectileMovement->InitialSpeed = MovementSpeed;
-	InitialLifeSpan = 8.0f;
 	ForceComp = CreateDefaultSubobject<URadialForceComponent>(TEXT("Force Component"));
 	ForceComp->SetupAttachment(ActorMesh);
+
+	ActorMesh->SetSimulatePhysics(true);
 }
 
 void ADamagingActor::BeginPlay()
@@ -32,10 +33,16 @@ void ADamagingActor::BeginPlay()
 void ADamagingActor::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
 	UE_LOG(LogTemp, Warning, TEXT("On Hit"));
+	if (OtherActor == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("OtherActor Nullptr"));
+		return;
+	}
 	if (OtherActor->GetClass()->IsChildOf(APlayableCharacter::StaticClass()))
 	{
 		AActor* ProjectileOwner = GetOwner();
 		UGameplayStatics::ApplyDamage(OtherActor, DamageAmount, ProjectileOwner->GetInstigatorController(), this, UDamageType::StaticClass());
+		Explode();
 	}
 }
 void ADamagingActor::Explode()
@@ -43,9 +50,9 @@ void ADamagingActor::Explode()
 	UE_LOG(LogTemp, Warning, TEXT("Explode"));
 	if (ForceComp != nullptr)
 	{
-
-		//ForceComp->FireImpulse();
-		//Destroy();
+		UE_LOG(LogTemp, Warning, TEXT("FireImpulse"));
+		ForceComp->FireImpulse();
+		Destroy();
 	}
 	else
 	{

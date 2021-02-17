@@ -178,8 +178,10 @@ void APlayableCharacter::LandMine()
 {
 	if (LandmineActorClass)
 	{
+		ALandmineActor* LandmineActor;
 		LandmineActor = GetWorld()->SpawnActor<ALandmineActor>(LandmineActorClass, LandmineSpawnPoint->GetComponentLocation(), LandmineSpawnPoint->GetComponentRotation());
 		LandmineActor->SetOwner(this);
+		LandmineActor->SetActorScale3D(FVector(0.2f, 0.2f, 0.2f));
 	}
 }
 
@@ -187,10 +189,12 @@ void APlayableCharacter::DamagingActor()
 {
 	if (DamagingActorClass)
 	{
-		TheDamagingActor = GetWorld()->SpawnActor<ADamagingActor>(DamagingActorClass, DamagingActorSpawnPoint->GetComponentLocation(), DamagingActorSpawnPoint->GetComponentRotation());
-		TheDamagingActor->SetOwner(this);
+		ADamagingActor* DamagingActor;
+		DamagingActor = GetWorld()->SpawnActor<ADamagingActor>(DamagingActorClass, DamagingActorSpawnPoint->GetComponentLocation(), DamagingActorSpawnPoint->GetComponentRotation());
+		DamagingActor->SetOwner(this);
 
-		TheDamagingActor->SetActorScale3D(FVector(0.2f, 0.2f, 0.2f));
+		DamagingActor->SetActorScale3D(FVector(1.5f, 1.5f, 1.5f));
+		
 	}
 }
 

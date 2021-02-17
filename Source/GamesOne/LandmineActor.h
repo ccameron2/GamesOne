@@ -2,6 +2,7 @@
 
 #pragma once
 #include "Kismet/GameplayStatics.h"
+#include "PhysicsEngine/RadialForceComponent.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -33,6 +34,7 @@ public:
 	UPROPERTY(EditAnywhere)
 		float DamageAmount = 33.0f;
 
-	
+	UPROPERTY(EditAnywhere)
+		URadialForceComponent* ForceComp;
 
 };

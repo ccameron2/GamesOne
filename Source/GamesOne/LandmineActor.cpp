@@ -13,7 +13,8 @@ ALandmineActor::ALandmineActor()
 	LandmineMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Landmine Mesh"));
 	LandmineMesh->SetNotifyRigidBodyCollision(true);
 
-
+	ForceComp = CreateDefaultSubobject<URadialForceComponent>(TEXT("Force Component"));
+	ForceComp->SetupAttachment(LandmineMesh);
 
 }
 
@@ -39,6 +40,7 @@ void ALandmineActor::OnHit(AActor* SelfActor, AActor* OtherActor, FVector Normal
 	{
 		AActor* ProjectileOwner = GetOwner();
 		UGameplayStatics::ApplyDamage(OtherActor, DamageAmount, ProjectileOwner->GetInstigatorController(), this, UDamageType::StaticClass());
+		ForceComp->FireImpulse();
 		SelfActor->Destroy();
 	}
 }

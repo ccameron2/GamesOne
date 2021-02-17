@@ -66,9 +66,6 @@ public:
 		TSubclassOf<ALandmineActor> LandmineActorClass;
 
 	UPROPERTY(EditAnywhere)
-		ALandmineActor* LandmineActor;
-
-	UPROPERTY(EditAnywhere)
 		USceneComponent* LandmineSpawnPoint;
 
 	UPROPERTY(EditAnywhere)
@@ -76,9 +73,6 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<ADamagingActor> DamagingActorClass;
-
-	UPROPERTY(EditAnywhere)
-		ADamagingActor* TheDamagingActor;
 
 	UPROPERTY(EditAnywhere)
 		float BulletDamage = 20.0f;
