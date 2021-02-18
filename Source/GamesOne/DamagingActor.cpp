@@ -25,12 +25,11 @@ ADamagingActor::ADamagingActor()
 void ADamagingActor::BeginPlay()
 {
 	Super::BeginPlay();
-	OnActorHit.AddDynamic(this, &ADamagingActor::OnHit);
+	OnActorHit.AddDynamic(this, &ADamagingActor::OnHitFlag);
 	GetWorld()->GetTimerManager().SetTimer(ExplodeTimer, this, &ADamagingActor::TimeUp, FuseTime, false);
-
 }
 
-void ADamagingActor::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
+void ADamagingActor::OnHitFlag(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
 	UE_LOG(LogTemp, Warning, TEXT("On Hit"));
 	if (OtherActor == nullptr)
@@ -40,6 +39,7 @@ void ADamagingActor::OnHit(AActor* SelfActor, AActor* OtherActor, FVector Normal
 	}
 	if (OtherActor->GetClass()->IsChildOf(APlayableCharacter::StaticClass()))
 	{
+		UE_LOG(LogTemp, Warning, TEXT("Hit Playablecharacter"));
 		AActor* ProjectileOwner = GetOwner();
 		UGameplayStatics::ApplyDamage(OtherActor, DamageAmount, ProjectileOwner->GetInstigatorController(), this, UDamageType::StaticClass());
 		Explode();

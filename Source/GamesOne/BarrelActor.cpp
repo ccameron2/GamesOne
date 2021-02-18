@@ -30,21 +30,14 @@ void ABarrelActor::Explode()
 void ABarrelActor::BeginPlay()
 {
 	Super::BeginPlay();
+	//BarrelMesh->AddImpulse(FVector(0.0f, 0.0f, 20.0f));
 }
 
 // Called every frame
 void ABarrelActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (TimerEnd)
-	{
-		BarrelMesh->AddTorqueInRadians(FVector(0.0f, 0.0f, 100.0f) * ForceAmount * BarrelMesh->GetMass());
-
-	}
-	else
-	{
-		BarrelMesh->AddForce(GetActorUpVector() * ForceAmount * BarrelMesh->GetMass());
-	}
+	BarrelMesh->AddForce(GetActorUpVector() * ForceAmount * BarrelMesh->GetMass());
 }
 
 void ABarrelActor::TimeUp()

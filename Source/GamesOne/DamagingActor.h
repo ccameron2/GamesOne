@@ -21,15 +21,13 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-
 public:	
-
 
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* ActorMesh;
 
 	UFUNCTION()
-		void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
+		void OnHitFlag(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
 
 	UPROPERTY(EditAnywhere)
 		UProjectileMovementComponent* ProjectileMovement;

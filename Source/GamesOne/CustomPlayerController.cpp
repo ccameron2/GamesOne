@@ -8,7 +8,8 @@ void ACustomPlayerController::BeginPlay()
 	Super::BeginPlay();
 	MyPawn = Cast<APlayableCharacter>(GetPawn());
 
-	NumberOfShots = 0;
+	TimesShot = 0;
+	ShotsLeft = MaximumAmmo;
 	HUDWidget = CreateWidget(this, HUDClass);
 
 	if (HUDWidget != nullptr)
@@ -53,11 +54,16 @@ void ACustomPlayerController::CallTurn(float Value)
 
 void ACustomPlayerController::CallFire()
 {
-	if (MyPawn)
+	if (TimesShot < MaximumAmmo)
 	{
-		NumberOfShots++;
-		MyPawn->Fire();
+		if (MyPawn)
+		{
+			TimesShot++;
+			ShotsLeft = MaximumAmmo - TimesShot;
+			MyPawn->Fire();
+		}
 	}
+	
 }
 
 void ACustomPlayerController::CallStrafe(float Value)
@@ -106,7 +112,7 @@ void ACustomPlayerController::CallDamagingActor()
 
 int ACustomPlayerController::GetShots()
 {
-	return NumberOfShots;
+	return ShotsLeft;
 }
 
 int ACustomPlayerController::GetHealth()
@@ -131,4 +137,10 @@ int ACustomPlayerController::GetPoints()
 	{
 		return 0;
 	}
+}
+
+void ACustomPlayerController::ResetAmmoCount()
+{
+	TimesShot = 0;
+	ShotsLeft = 30;
 }

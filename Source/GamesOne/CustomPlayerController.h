@@ -24,7 +24,8 @@ public:
 
 	UPROPERTY()
 		class APlayableCharacter* MyPawn;
-
+	UFUNCTION()
+		void ResetAmmoCount();
 private:
 	virtual void CallForward(float AxisValue);
 	virtual void CallTurn(float AxisValue);
@@ -39,7 +40,12 @@ private:
 		TSubclassOf<UUserWidget> HUDClass;
 
 	UPROPERTY(EditAnywhere)
-		int NumberOfShots;
+		int ShotsLeft;
+
+	UPROPERTY(EditAnywhere)
+		int TimesShot;
+	UPROPERTY(EditAnywhere)
+		int MaximumAmmo = 30;
 
 	UPROPERTY()
 		UUserWidget* HUDWidget;
@@ -56,5 +62,5 @@ private:
 	UFUNCTION(BlueprintPure)
 		int GetPoints();
 
-
+	
 };

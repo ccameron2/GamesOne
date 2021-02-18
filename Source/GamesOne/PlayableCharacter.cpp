@@ -73,6 +73,8 @@ void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	PlayerInputComponent->BindAxis("Look Up", this, &APlayableCharacter::LookUp);*/
 }
 
+
+
 int APlayableCharacter::GetPoints()
 {
 	return GameModeRef->GetPoints();
@@ -100,10 +102,7 @@ void APlayableCharacter::LookUp(float AxisValue)
 
 void APlayableCharacter::Fire()
 {
-	WeaponActor->OnFire();
-	//implement raycasting code here to check if player is hit;
-	//implement dealing damage
-
+	
 	AController* ControllerRef = GetController();
 	FVector CameraLocation;
 	FRotator CameraRotation;
@@ -111,6 +110,8 @@ void APlayableCharacter::Fire()
 	float CastRange = 10000.0f;
 	FHitResult Hit;
 	bool bDidHit;
+	WeaponActor->OnFire();
+
 	if (Cast<AEnemyAIController>(ControllerRef))
 	{
 		APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
@@ -118,7 +119,6 @@ void APlayableCharacter::Fire()
 
 		Cast<AEnemyAIController>(ControllerRef)->SetFocus(PlayerPawn);
 		bDidHit = GetWorld()->LineTraceSingleByChannel(Hit, RaycastingCastPoint->GetComponentLocation(), End, ECC_Visibility);
-
 	}
 	else
 	{
@@ -203,7 +203,7 @@ void APlayableCharacter::DamagingActor()
 float APlayableCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Take Damage"));
-	if (HealthPoints > 0)
+	if (HealthPoints - DamageAmount > 0)
 	{
 		HealthPoints -= DamageAmount;
 	}
