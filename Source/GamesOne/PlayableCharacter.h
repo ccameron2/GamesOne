@@ -2,13 +2,9 @@
 
 #pragma once
 #include "GamesOneGameModeBase.h"
-
-
 #include "DamagingActor.h"
 #include "WeaponActor.h"
 #include "LandmineActor.h"
-#include "Components/SceneComponent.h"
-
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "CustomMovementComponent.h"
@@ -16,6 +12,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "PlayableCharacter.generated.h"
+
+class USpringArmComponent;
+class UCameraComponent;
+class USceneCaptureComponent2D;
 
 UCLASS()
 class GAMESONE_API APlayableCharacter : public ACharacter
@@ -27,10 +27,6 @@ public:
 	APlayableCharacter();
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 
 	UPROPERTY(EditAnywhere)
 		float MoveSpeed = 200.0f;
@@ -104,6 +100,8 @@ private:
 
 	UPROPERTY(EditAnywhere)
 		UCustomMovementComponent* PawnMovement;
-
-
+	UPROPERTY(EditAnywhere)
+		USpringArmComponent* MapArm;
+	UPROPERTY(EditAnywhere)
+		USceneCaptureComponent2D* MapCamera;
 };

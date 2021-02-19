@@ -33,16 +33,8 @@ private:
 	UPROPERTY(EditAnywhere)
 		URadialForceComponent* ForceComp;
 	UPROPERTY(EditAnywhere)
-		float ForceAmount = 985.0f;
+		float ForceAmount = 981.0f;
 	UPROPERTY(EditAnywhere)
-		float TorqueAmount = 10.0f;
-	UPROPERTY()
-		FTimerHandle BarrelTimer;
-	UPROPERTY()
-		float TimerDuration = 5.0f;
-	UFUNCTION()
-		void TimeUp();
-	UPROPERTY()
-		bool TimerEnd;
+		float TorqueAmount = 100.0f;
 
 };

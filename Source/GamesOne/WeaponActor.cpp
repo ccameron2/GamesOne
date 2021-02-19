@@ -45,7 +45,6 @@ void AWeaponActor::OnFire()
 		FRotator SpawnRotation = ProjectileSpawnPoint->GetComponentRotation();
 		//FVector SpawnLocation = FVector(-10.8f, 59.0f, 11.0f);
 		ABulletActor* TempBullet = GetWorld()->SpawnActor<ABulletActor>(BulletClass, SpawnLocation, SpawnRotation);
-		TempBullet->SetActorEnableCollision(false);
 	}
 }
 

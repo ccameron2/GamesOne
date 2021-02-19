@@ -16,8 +16,6 @@ ABarrelActor::ABarrelActor()
 
 	ForceComp = CreateDefaultSubobject<URadialForceComponent>(TEXT("Force Component"));
 	ForceComp->SetupAttachment(BarrelMesh);
-
-	//GetWorld()->GetTimerManager().SetTimer(BarrelTimer, this, &ABarrelActor::TimeUp, TimerDuration, false);
 }
 
 void ABarrelActor::Explode()
@@ -30,18 +28,15 @@ void ABarrelActor::Explode()
 void ABarrelActor::BeginPlay()
 {
 	Super::BeginPlay();
-	//BarrelMesh->AddImpulse(FVector(0.0f, 0.0f, 20.0f));
 }
 
 // Called every frame
 void ABarrelActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	BarrelMesh->AddForce(GetActorUpVector() * ForceAmount * BarrelMesh->GetMass());
-}
+	//GetActorUpVector is not directly up on this actor so using FVector instead
+	BarrelMesh->AddForce(FVector(0.0f,0.0f, ForceAmount * BarrelMesh->GetMass()));
+	FRotator Rotator = FRotator(0.0f, 1.0f, 0.0f);
+	AddActorLocalRotation(Rotator);
 
-void ABarrelActor::TimeUp()
-{
-	UE_LOG(LogTemp,Warning,TEXT("BarrelTimer"))
-	TimerEnd = true;
 }

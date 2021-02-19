@@ -37,4 +37,6 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		UBoxComponent* BoxComponent;
+	UPROPERTY(EditAnywhere)
+		float RotationSpeed = 80.0f;
 };

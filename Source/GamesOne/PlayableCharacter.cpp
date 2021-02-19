@@ -6,6 +6,7 @@
 #include "CustomPlayerController.h"
 #include "CustomDestructibleActor.h"
 #include "ShootableActor.h"
+#include "Components/SceneCaptureComponent2D.h"
 
 // Sets default values
 APlayableCharacter::APlayableCharacter()
@@ -16,7 +17,6 @@ APlayableCharacter::APlayableCharacter()
 	SetRootComponent(PawnMesh);
 	// Create spring arm and attach to staticMesh
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
-	
 
 	// Springarm settings
 	SpringArm->TargetArmLength = 300.0f;
@@ -37,6 +37,12 @@ APlayableCharacter::APlayableCharacter()
 
 	RaycastingCastPoint = CreateDefaultSubobject<USceneComponent>(TEXT("RaycastingPoint"));
 	RaycastingCastPoint->SetRelativeLocation(FVector(32.0f, 16.0f, 70.0f));
+
+	// Maparm settings
+	MapArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Map Arm"));
+
+	MapCamera = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("Map Camera"));
+	MapCamera->SetupAttachment(MapArm);
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
@@ -62,16 +68,7 @@ void APlayableCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
-void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	/*Super::SetupPlayerInputComponent(PlayerInputComponent);
-	PlayerInputComponent->BindAxis("Move Forwards", this, &APlayableCharacter::MoveForward);
-	PlayerInputComponent->BindAxis("Turn", this, &APlayableCharacter::Turn);
-	PlayerInputComponent->BindAction("Fire", EInputEvent::IE_Pressed, this, &APlayableCharacter::Fire);
-	PlayerInputComponent->BindAxis("Strafe", this, &APlayableCharacter::Strafe);
-	PlayerInputComponent->BindAction("Jump", EInputEvent::IE_Pressed, this, &APlayableCharacter::Jump);
-	PlayerInputComponent->BindAxis("Look Up", this, &APlayableCharacter::LookUp);*/
-}
+	
 
 
 

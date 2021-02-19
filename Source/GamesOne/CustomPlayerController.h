@@ -40,6 +40,15 @@ private:
 		TSubclassOf<UUserWidget> HUDClass;
 
 	UPROPERTY(EditAnywhere)
+		TSubclassOf<UUserWidget> MinimapClass;
+
+	UPROPERTY()
+		UUserWidget* MinimapWidget;
+	
+	UPROPERTY()
+		UUserWidget* HUDWidget;
+
+	UPROPERTY(EditAnywhere)
 		int ShotsLeft;
 
 	UPROPERTY(EditAnywhere)
@@ -47,8 +56,7 @@ private:
 	UPROPERTY(EditAnywhere)
 		int MaximumAmmo = 30;
 
-	UPROPERTY()
-		UUserWidget* HUDWidget;
+
 
 	UFUNCTION(BlueprintPure)
 		int GetShots();

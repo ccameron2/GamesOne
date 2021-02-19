@@ -10,13 +10,20 @@ void ACustomPlayerController::BeginPlay()
 
 	TimesShot = 0;
 	ShotsLeft = MaximumAmmo;
-	HUDWidget = CreateWidget(this, HUDClass);
-
-	if (HUDWidget != nullptr)
+	if (MyPawn)
 	{
-		HUDWidget->AddToViewport();
+		HUDWidget = CreateWidget(this, HUDClass);
+		MinimapWidget = CreateWidget(this, MinimapClass);
+		if (HUDWidget != nullptr)
+		{
+			HUDWidget->AddToViewport();
+		}
+		if (MinimapWidget != nullptr)
+		{
+			MinimapWidget->AddToViewport();
+		}
 	}
-
+	
 }
 
 void ACustomPlayerController::SetupInputComponent()
@@ -141,6 +148,7 @@ int ACustomPlayerController::GetPoints()
 
 void ACustomPlayerController::ResetAmmoCount()
 {
+	
 	TimesShot = 0;
 	ShotsLeft = 30;
 }
