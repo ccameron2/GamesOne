@@ -2,7 +2,7 @@
 
 #include "AmmoActor.h"
 #include "CustomPlayerController.h"
-
+#include "Kismet/GameplayStatics.h"
 // Sets default values
 AAmmoActor::AAmmoActor()
 {
@@ -44,6 +44,7 @@ void AAmmoActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Oth
 		{
 			ACustomPlayerController* Controller = Cast<ACustomPlayerController>(OtherActorRef->GetController());
 			UE_LOG(LogTemp, Warning, TEXT("Reset Ammo"));
+			UGameplayStatics::PlaySoundAtLocation(GetWorld(), PickupSound, GetActorLocation());
 			Controller->ResetAmmoCount();
 		}
 		

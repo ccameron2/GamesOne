@@ -39,4 +39,6 @@ public:
 		UBoxComponent* BoxComponent;
 	UPROPERTY(EditAnywhere)
 		float RotationSpeed = 100.0f;
+	UPROPERTY(EditAnywhere)
+		USoundBase* PickupSound;
 };
