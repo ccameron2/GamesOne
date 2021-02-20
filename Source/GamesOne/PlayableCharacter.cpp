@@ -21,7 +21,7 @@ APlayableCharacter::APlayableCharacter()
 
 	// Springarm settings
 	SpringArm->TargetArmLength = 300.0f;
-	SpringArm->bEnableCameraLag = true;
+	SpringArm->bEnableCameraLag = false;
 	SpringArm->SetRelativeRotation((new FRotator(0.0f, 0.0f, 0.0f))->Quaternion());
 	SpringArm->SetRelativeLocation(FVector(-361.0f,-305.0f,113.0f));
 	SpringArm->SetupAttachment(PawnMesh);
@@ -131,7 +131,7 @@ void APlayableCharacter::Fire()
 			UE_LOG(LogTemp, Warning, TEXT("Hit Something: %s"), *Hit.GetActor()->GetName());
 			UPrimitiveComponent* RootComp = Cast<UPrimitiveComponent>(Hit.GetActor()->GetRootComponent());
 			if (Cast<ABarrelActor>(Hit.GetActor()))
-			{	
+			{
 				//RootComp->AddImpulse(CameraRotation.Vector() * impulseForce * RootComp->GetMass());
 				Cast<ABarrelActor>(Hit.GetActor())->Explode();
 			}
@@ -146,10 +146,6 @@ void APlayableCharacter::Fire()
 			else if (Cast<AShootableActor>(Hit.GetActor()))
 			{
 				RootComp->AddImpulse(CameraRotation.Vector() * impulseForce * RootComp->GetMass());
-			}
-			else
-			{
-				//Do nothing
 			}
 
 

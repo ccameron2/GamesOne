@@ -56,6 +56,14 @@ private:
 	UPROPERTY(EditAnywhere)
 		int MaximumAmmo = 30;
 
+	UPROPERTY(EditAnywhere)
+		int MaximumGrenades = 3;
+	UPROPERTY(EditAnywhere)
+		int CurrentGrenades;
+	UPROPERTY(EditAnywhere)
+		int MaximumLandmines = 2;
+	UPROPERTY(EditAnywhere)
+		int CurrentLandmines;
 
 
 	UFUNCTION(BlueprintPure)
@@ -70,5 +78,9 @@ private:
 	UFUNCTION(BlueprintPure)
 		int GetPoints();
 
-	
+	UFUNCTION(BlueprintPure)
+		int GetGrenades();
+	UFUNCTION(BlueprintPure)
+		int GetLandmines();
+
 };

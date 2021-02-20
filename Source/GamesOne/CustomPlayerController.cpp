@@ -10,6 +10,8 @@ void ACustomPlayerController::BeginPlay()
 
 	TimesShot = 0;
 	ShotsLeft = MaximumAmmo;
+	CurrentGrenades = MaximumGrenades;
+	CurrentLandmines = MaximumLandmines;
 	if (MyPawn)
 	{
 		HUDWidget = CreateWidget(this, HUDClass);
@@ -101,7 +103,11 @@ void ACustomPlayerController::CallLandMine()
 {
 	if (MyPawn)
 	{
-		MyPawn->LandMine();
+		if (CurrentLandmines > 0)
+		{
+			MyPawn->LandMine();
+			CurrentLandmines--;
+		}
 	}
 
 }
@@ -110,7 +116,11 @@ void ACustomPlayerController::CallDamagingActor()
 {
 	if (MyPawn)
 	{
-		MyPawn->DamagingActor();
+		if (CurrentGrenades > 0)
+		{
+			MyPawn->DamagingActor();
+			CurrentGrenades--;
+		}
 	}
 
 }
@@ -144,6 +154,16 @@ int ACustomPlayerController::GetPoints()
 	{
 		return 0;
 	}
+}
+
+int ACustomPlayerController::GetGrenades()
+{
+	return CurrentGrenades;
+}
+
+int ACustomPlayerController::GetLandmines()
+{
+	return CurrentLandmines;
 }
 
 void ACustomPlayerController::ResetAmmoCount()
