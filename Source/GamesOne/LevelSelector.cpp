@@ -19,8 +19,6 @@ ALevelSelector::ALevelSelector()
 	BoxComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 120.0f));
 	BoxComponent->SetCollisionProfileName(TEXT("Trigger"));
 	BoxComponent->SetupAttachment(RootComponent);
-
-
 }
 
 // Called when the game starts or when spawned
@@ -29,6 +27,8 @@ void ALevelSelector::BeginPlay()
 	Super::BeginPlay();
 	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &ALevelSelector::OnOverlapBegin);
 	BoxComponent->OnComponentEndOverlap.AddDynamic(this, &ALevelSelector::OnOverlapEnd);
+	ASparks* Spark;
+	Spark = GetWorld()->SpawnActor<ASparks>(SparkClass, this->GetActorLocation() + FVector(0.0f, 0.0f, 100.0f), this->GetActorRotation());
 }
 
 // Called every frame

@@ -7,6 +7,7 @@
 #include "CustomDestructibleActor.h"
 #include "ShootableActor.h"
 #include "Components/SceneCaptureComponent2D.h"
+#include "Kismet/Gameplaystatics.h"
 
 // Sets default values
 APlayableCharacter::APlayableCharacter()
@@ -68,8 +69,6 @@ void APlayableCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
-	
-
 
 
 int APlayableCharacter::GetPoints()
@@ -202,6 +201,7 @@ float APlayableCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Dam
 	UE_LOG(LogTemp, Warning, TEXT("Take Damage"));
 	if (HealthPoints - DamageAmount > 0)
 	{
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), HitSound, GetActorLocation());
 		HealthPoints -= DamageAmount;
 	}
 	else

@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "Explosion.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -37,4 +38,8 @@ private:
 	UPROPERTY(EditAnywhere)
 		float TorqueAmount = 100.0f;
 
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AExplosion> ExplosionClass;
+	UPROPERTY(EditAnywhere)
+		USoundBase* ExplosionSound;
 };

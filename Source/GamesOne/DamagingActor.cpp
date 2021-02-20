@@ -3,6 +3,7 @@
 
 #include "DamagingActor.h"
 #include "PlayableCharacter.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ADamagingActor::ADamagingActor()
@@ -47,6 +48,9 @@ void ADamagingActor::OnHitFlag(AActor* SelfActor, AActor* OtherActor, FVector No
 }
 void ADamagingActor::Explode()
 {
+	AExplosion* Explosion;
+	Explosion = GetWorld()->SpawnActor<AExplosion>(ExplosionClass, this->GetActorLocation(), this->GetActorRotation());
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), ExplosionSound, GetActorLocation());
 	UE_LOG(LogTemp, Warning, TEXT("Explode"));
 	if (ForceComp != nullptr)
 	{

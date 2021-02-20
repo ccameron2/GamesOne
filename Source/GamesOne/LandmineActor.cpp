@@ -3,7 +3,7 @@
 #include "LandmineActor.h"
 
 #include "PlayableCharacter.h"
-
+#include "Kismet/GameplayStatics.h"
 // Sets default values
 ALandmineActor::ALandmineActor()
 {
@@ -40,6 +40,9 @@ void ALandmineActor::OnHit(AActor* SelfActor, AActor* OtherActor, FVector Normal
 	{
 		AActor* ProjectileOwner = GetOwner();
 		UGameplayStatics::ApplyDamage(OtherActor, DamageAmount, ProjectileOwner->GetInstigatorController(), this, UDamageType::StaticClass());
+		AExplosion* Explosion;
+		Explosion = GetWorld()->SpawnActor<AExplosion>(ExplosionClass, this->GetActorLocation(), this->GetActorRotation());
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), ExplosionSound, GetActorLocation());
 		ForceComp->FireImpulse();
 		SelfActor->Destroy();
 	}

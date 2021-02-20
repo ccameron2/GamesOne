@@ -3,6 +3,7 @@
 
 #include "BarrelActor.h"
 #include "PhysicsEngine/RadialForceComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABarrelActor::ABarrelActor()
@@ -11,15 +12,20 @@ ABarrelActor::ABarrelActor()
 	PrimaryActorTick.bCanEverTick = true;
 	
 	BarrelMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Barrel Mesh"));
-	BarrelMesh->SetupAttachment(RootComponent);
+	SetRootComponent(BarrelMesh);
 	BarrelMesh->SetSimulatePhysics(true);
 
 	ForceComp = CreateDefaultSubobject<URadialForceComponent>(TEXT("Force Component"));
 	ForceComp->SetupAttachment(BarrelMesh);
+
+
 }
 
 void ABarrelActor::Explode()
 {
+	AExplosion* Explosion;
+	Explosion = GetWorld()->SpawnActor<AExplosion>(ExplosionClass, this->GetActorLocation() + FVector(0,0,80), this->GetActorRotation());
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), ExplosionSound, GetActorLocation());
 	ForceComp->FireImpulse();
 	Destroy();
 }

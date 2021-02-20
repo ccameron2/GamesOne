@@ -2,6 +2,7 @@
 
 
 #include "WeaponActor.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AWeaponActor::AWeaponActor()
@@ -45,6 +46,8 @@ void AWeaponActor::OnFire()
 		FRotator SpawnRotation = ProjectileSpawnPoint->GetComponentRotation();
 		//FVector SpawnLocation = FVector(-10.8f, 59.0f, 11.0f);
 		ABulletActor* TempBullet = GetWorld()->SpawnActor<ABulletActor>(BulletClass, SpawnLocation, SpawnRotation);
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), GunshotSound, GetActorLocation(), 0.3);
+	
 	}
 }
 

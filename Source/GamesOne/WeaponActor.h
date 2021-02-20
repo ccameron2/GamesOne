@@ -40,6 +40,8 @@ private:
 
 	UPROPERTY(EditAnywhere)
 		USkeletalMeshComponent* GunSkeletalMesh;
-
+	
+	UPROPERTY(EditAnywhere)
+		USoundBase* GunshotSound;
 
 };

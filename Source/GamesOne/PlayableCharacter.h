@@ -104,4 +104,10 @@ private:
 		USpringArmComponent* MapArm;
 	UPROPERTY(EditAnywhere)
 		USceneCaptureComponent2D* MapCamera;
+
+	UPROPERTY(EditAnywhere)
+		USoundBase* HitSound;
+
+
+
 };

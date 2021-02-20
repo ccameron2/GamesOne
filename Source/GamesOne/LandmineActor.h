@@ -1,6 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+
+#include "Explosion.h"
+
 #include "Kismet/GameplayStatics.h"
 #include "PhysicsEngine/RadialForceComponent.h"
 
@@ -36,5 +39,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		URadialForceComponent* ForceComp;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AExplosion> ExplosionClass;
+	UPROPERTY(EditAnywhere)
+		USoundBase* ExplosionSound;
 
 };

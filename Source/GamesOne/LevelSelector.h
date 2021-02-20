@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Sparks.h"
 #include "Components/BoxComponent.h"
 
 #include "CoreMinimal.h"
@@ -43,4 +44,6 @@ public:
 	UPROPERTY(EditAnywhere)
 		FName LevelName;
 
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<ASparks> SparkClass;
 };

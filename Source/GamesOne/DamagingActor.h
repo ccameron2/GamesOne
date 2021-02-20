@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
+#include "Explosion.h"
 
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -51,4 +52,11 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		float FuseTime = 1.5f;
+
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AExplosion> ExplosionClass;
+	
+	UPROPERTY(EditAnywhere)
+		USoundBase* ExplosionSound;
+
 };
