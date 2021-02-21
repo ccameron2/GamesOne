@@ -11,10 +11,12 @@ ABarrelActor::ABarrelActor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
+	//Create Barrel Mesh and set as root component.
 	BarrelMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Barrel Mesh"));
 	SetRootComponent(BarrelMesh);
 	BarrelMesh->SetSimulatePhysics(true);
 
+	//Create radial force component and attach to barrel mesh
 	ForceComp = CreateDefaultSubobject<URadialForceComponent>(TEXT("Force Component"));
 	ForceComp->SetupAttachment(BarrelMesh);
 
@@ -23,10 +25,14 @@ ABarrelActor::ABarrelActor()
 
 void ABarrelActor::Explode()
 {
+	//Spawn Explosion actor
 	AExplosion* Explosion;
 	Explosion = GetWorld()->SpawnActor<AExplosion>(ExplosionClass, this->GetActorLocation() + FVector(0,0,80), this->GetActorRotation());
+	//Play explosion sound
 	UGameplayStatics::PlaySoundAtLocation(GetWorld(), ExplosionSound, GetActorLocation());
+	//Fire radial impulse
 	ForceComp->FireImpulse();
+	//Destroy actor
 	Destroy();
 }
 
@@ -40,8 +46,9 @@ void ABarrelActor::BeginPlay()
 void ABarrelActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//GetActorUpVector is not directly up on this actor so using FVector instead
+	//add upwards force to barrel every tick
 	BarrelMesh->AddForce(FVector(0.0f,0.0f, ForceAmount * BarrelMesh->GetMass()));
+	//Add actor rotation for consistent speed spin
 	FRotator Rotator = FRotator(0.0f, 1.0f, 0.0f);
 	AddActorLocalRotation(Rotator);
 

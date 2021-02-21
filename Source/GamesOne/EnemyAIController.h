@@ -26,27 +26,11 @@ protected:
 
 
 private:
-	UPROPERTY()
-		TArray<AActor*> Waypoints;
-
-	AActor* ChooseWaypoint();
-	void RandomPatrol();
-
-	UPROPERTY()
-		FTimerHandle WaitTimer;
-
-	UPROPERTY()
-		float WaitTime = 3.0f;
 
 	UPROPERTY(EditAnywhere)
 		UBehaviorTree* EnemyBehavior;
 
-	void TimeUp();
-
 	bool CheckFront(AActor* ActorToCheck);
 
 	APawn* AIPawn;
-
-	UPROPERTY()
-		AActor* LookoutPoint;
 };

@@ -23,6 +23,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* AmmoMesh;
 	
@@ -37,8 +38,10 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		UBoxComponent* BoxComponent;
+
 	UPROPERTY(EditAnywhere)
 		float RotationSpeed = 100.0f;
+
 	UPROPERTY(EditAnywhere)
 		USoundBase* PickupSound;
 };

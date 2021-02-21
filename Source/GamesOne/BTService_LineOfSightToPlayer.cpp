@@ -13,6 +13,7 @@ void UBTService_LineOfSightToPlayer::TickNode(UBehaviorTreeComponent& OwnerComp,
 	AAIController* EnemyAIController = OwnerComp.GetAIOwner();
 	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(),0);
 
+	//Check line of sight to player and pass result to blackboard
 	if (EnemyAIController->LineOfSightTo(PlayerPawn))
 	{
 		OwnerComp.GetBlackboardComponent()->SetValueAsBool(GetSelectedBlackboardKey(), true);

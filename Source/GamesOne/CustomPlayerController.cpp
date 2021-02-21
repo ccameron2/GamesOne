@@ -1,19 +1,22 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "CustomPlayerController.h"
-#include "CustomMovementComponent.h"
 #include "Blueprint/UserWidget.h"
 
 void ACustomPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+	//Get pawn reference
 	MyPawn = Cast<APlayableCharacter>(GetPawn());
-
+	
+	//Set ammo values to editor exposed variables
 	TimesShot = 0;
 	ShotsLeft = MaximumAmmo;
 	CurrentGrenades = MaximumGrenades;
 	CurrentLandmines = MaximumLandmines;
+
 	if (MyPawn)
 	{
+		//Add HUD and Minimap to screen
 		HUDWidget = CreateWidget(this, HUDClass);
 		MinimapWidget = CreateWidget(this, MinimapClass);
 		if (HUDWidget != nullptr)
@@ -31,8 +34,10 @@ void ACustomPlayerController::BeginPlay()
 void ACustomPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
-
+	
 	check(InputComponent);
+
+	//Bind inputs to assigned functions
 	InputComponent->BindAxis("Move Forwards", this, &ACustomPlayerController::CallForward);
 	InputComponent->BindAxis("Turn", this, &ACustomPlayerController::CallTurn);
 	InputComponent->BindAction("Fire", EInputEvent::IE_Pressed, this, &ACustomPlayerController::CallFire);
@@ -167,8 +172,7 @@ int ACustomPlayerController::GetLandmines()
 }
 
 void ACustomPlayerController::ResetAmmoCount()
-{
-	
+{	
 	TimesShot = 0;
 	ShotsLeft = 30;
 }

@@ -14,13 +14,16 @@ void UBTService_CheckFront::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* N
 	APawn* AIPawn = EnemyAIController->GetPawn();
 	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 
-	FVector AIForwardVector = AIPawn->GetActorForwardVector(); //already nomalised
+	FVector AIForwardVector = AIPawn->GetActorForwardVector(); 
 	FVector PlayerPositionVector = AIPawn->GetActorLocation();
 	FVector AIPositionVector = AIPawn->GetActorLocation();
 	FVector AIToPlayerVector = PlayerPositionVector - AIPositionVector;
-	AIToPlayerVector.Normalize(); //this vector must be explicitly normalised
+	AIToPlayerVector.Normalize(); 
+
+	//Calculate dot product between AI and Player
 	float DirectionDotProduct = FVector::DotProduct(AIToPlayerVector, AIForwardVector);
 	
+	//Pass result to blackboard component
 	if (DirectionDotProduct > 0)
 	{
 		OwnerComp.GetBlackboardComponent()->SetValueAsBool(GetSelectedBlackboardKey(), true);

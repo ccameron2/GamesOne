@@ -12,6 +12,7 @@ void AEndGameModeBase::BeginPlay()
 
 void AEndGameModeBase::StartGame()
 {
+	//Start timer to restart game if time runs out.
 	GetWorld()->GetTimerManager().SetTimer(EndGameTimer, this, &AEndGameModeBase::TimeUp, GameDuration, false);
 }
 

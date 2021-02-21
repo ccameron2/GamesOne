@@ -16,14 +16,13 @@ EBTNodeResult::Type UBTTask_RandomLocation::ExecuteTask(UBehaviorTreeComponent& 
 
 	AActor* AIActor = OwnerComp.GetAIOwner()->GetPawn();
 
-	float RandomRadius = 2000.0f;
 	FNavLocation RandomLocation;
-
+	//Get Nav system and find a Random Reachable Point 
 	UNavigationSystemV1* NavSys = FNavigationSystem::GetCurrent < UNavigationSystemV1>(this);
 	NavSys->GetRandomReachablePointInRadius(AIActor->GetActorLocation(),RandomRadius,RandomLocation);
-
+	//Pass random reachable point to Blackboard component
 	OwnerComp.GetBlackboardComponent()->SetValueAsVector(TEXT("RandomPosition"), RandomLocation);
-
-
+	
+	//Return success code
 	return EBTNodeResult::Succeeded;
 }

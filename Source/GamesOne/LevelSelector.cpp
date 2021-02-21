@@ -16,7 +16,7 @@ ALevelSelector::ALevelSelector()
 
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Component"));
 	BoxComponent->SetBoxExtent(FVector(60.0f, 60.0f, 30.0f));
-	BoxComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 60.0f));
+	BoxComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
 	BoxComponent->SetCollisionProfileName(TEXT("Trigger"));
 	BoxComponent->SetupAttachment(RootComponent);
 }
