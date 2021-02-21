@@ -24,7 +24,7 @@ private:
 
 public:
 	UPROPERTY(EditAnywhere)
-		float RandomRadius = 2000.0f;
+		float RandomRadius = 800.0f;
 
 
 };
