@@ -57,9 +57,6 @@ public:
 		TSubclassOf<AWeaponActor> WeaponActorClass;
 
 	UPROPERTY(EditAnywhere)
-		AWeaponActor* WeaponActor;
-
-	UPROPERTY(EditAnywhere)
 		TSubclassOf<ALandmineActor> LandmineActorClass;
 
 	UPROPERTY(EditAnywhere)
@@ -73,9 +70,6 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		float BulletDamage = 20.0f;
-
-	UPROPERTY(EditAnywhere)
-		AGamesOneGameModeBase* GameModeRef;
 
 	UPROPERTY(EditAnywhere)
 		USceneComponent* RaycastingCastPoint;
@@ -100,20 +94,23 @@ private:
 
 	UPROPERTY(EditAnywhere)
 		UCustomMovementComponent* PawnMovement;
+	
 	UPROPERTY(EditAnywhere)
 		USpringArmComponent* MapArm;
+	
 	UPROPERTY(EditAnywhere)
 		USceneCaptureComponent2D* MapCamera;
 
 	UPROPERTY(EditAnywhere)
 		USoundBase* HitSound;
-
+	
+	//Maximum range of raycast
 	UPROPERTY(EditAnywhere)
 		float CastRange = 10000.0f;
-
+	//Force to apply to actors that can be moved when shot
 	UPROPERTY(EditAnywhere)
 		float impulseForce = 1000.0f;
 
-
-
+	AGamesOneGameModeBase* GameModeRef;
+	AWeaponActor* WeaponActor;
 };

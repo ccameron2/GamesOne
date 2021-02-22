@@ -9,9 +9,9 @@ AExplosion::AExplosion()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	//Create Particle System Component and attach to root component.
+	//Create Particle System Component set as root component.
 	Explosion = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Explosion Particle Component"));
-	Explosion->SetupAttachment(RootComponent);
+	SetRootComponent(Explosion);
 	Explosion->Activate();
 }
 

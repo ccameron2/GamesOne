@@ -2,7 +2,7 @@
 
 #pragma once
 #include "Components/BoxComponent.h"
-
+#include "AmmoActor.h"
 #include "CoreMinimal.h"
 #include "DestructibleActor.h"
 #include "CustomDestructibleActor.generated.h"
@@ -27,17 +27,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION()
-		void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
-			UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
-			const FHitResult& SweepResult);
-	UFUNCTION()
-		void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
-			UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
-
-	UPROPERTY(EditAnywhere)
-		UBoxComponent* BoxComponent;
-
-	UFUNCTION()
 		void OnFracture(const FVector& HitPoint, const FVector& HitDirection);
-
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AAmmoActor> AmmoClass;
 };
