@@ -14,6 +14,7 @@ ADamagingActor::ADamagingActor()
 	ActorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Actor Mesh"));
 	SetRootComponent(ActorMesh);
 
+	//Set lifespan of actor
 	InitialLifeSpan = 5;
 
 	//Create projectile movement componenet and set speeds.

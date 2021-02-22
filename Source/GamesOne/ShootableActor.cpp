@@ -25,9 +25,3 @@ void AShootableActor::BeginPlay()
 
 }
 
-// Called every frame
-void AShootableActor::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-

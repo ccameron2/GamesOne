@@ -7,7 +7,6 @@
 #include "LandmineActor.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "CustomMovementComponent.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
@@ -91,9 +90,6 @@ private:
 
 	UPROPERTY(EditAnywhere)
 		USpringArmComponent* SpringArm;
-
-	UPROPERTY(EditAnywhere)
-		UCustomMovementComponent* PawnMovement;
 	
 	UPROPERTY(EditAnywhere)
 		USpringArmComponent* MapArm;

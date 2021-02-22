@@ -29,17 +29,22 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* BarrelMesh;
+
 	UPROPERTY(EditAnywhere)
 		URadialForceComponent* ForceComp;
+
 	UPROPERTY(EditAnywhere)
 		float ForceAmount = 981.0f;
+
 	UPROPERTY(EditAnywhere)
 		float TorqueAmount = 100.0f;
 
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AExplosion> ExplosionClass;
+
 	UPROPERTY(EditAnywhere)
 		USoundBase* ExplosionSound;
 };

@@ -34,13 +34,6 @@ void AWeaponActor::BeginPlay()
 	
 }
 
-// Called every frame
-void AWeaponActor::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
 void AWeaponActor::OnFire()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Shots fired!"));

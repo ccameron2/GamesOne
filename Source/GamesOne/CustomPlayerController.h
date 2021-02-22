@@ -3,7 +3,6 @@
 #pragma once
 
 #include "PlayableCharacter.h"
-#include "MovablePawn.h"
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
@@ -41,12 +40,6 @@ private:
 
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<UUserWidget> MinimapClass;
-
-	UPROPERTY()
-		UUserWidget* MinimapWidget;
-	
-	UPROPERTY()
-		UUserWidget* HUDWidget;
 
 	UPROPERTY(EditAnywhere)
 		int ShotsLeft;

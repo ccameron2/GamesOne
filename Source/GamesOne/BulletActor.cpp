@@ -20,9 +20,8 @@ ABulletActor::ABulletActor()
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
 	ProjectileMovement->MaxSpeed = MovementSpeed;
 	ProjectileMovement->InitialSpeed = MovementSpeed;
+	//Set lifespan of projectile
 	InitialLifeSpan = 5.0f;
-
-	
 
 }
 

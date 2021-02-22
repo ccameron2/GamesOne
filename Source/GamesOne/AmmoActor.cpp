@@ -8,6 +8,7 @@ AAmmoActor::AAmmoActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
 	//Create Ammo Mesh and set as root component
 	AmmoMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Ammo Mesh"));
 	SetRootComponent(AmmoMesh);
@@ -27,7 +28,6 @@ void AAmmoActor::BeginPlay()
 	Super::BeginPlay();
 	//Add dynamic delegates
 	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &AAmmoActor::OnOverlapBegin);
-	BoxComponent->OnComponentEndOverlap.AddDynamic(this, &AAmmoActor::OnOverlapEnd);
 }
 
 // Called every frame
@@ -54,10 +54,5 @@ void AAmmoActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Oth
 		}
 		Destroy();
 	}
-}
-	
-
-void AAmmoActor::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-{
 }
 

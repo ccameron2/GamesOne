@@ -17,8 +17,8 @@ void ACustomPlayerController::BeginPlay()
 	if (MyPawn)
 	{
 		//Add HUD and Minimap to screen
-		HUDWidget = CreateWidget(this, HUDClass);
-		MinimapWidget = CreateWidget(this, MinimapClass);
+		UUserWidget* HUDWidget = CreateWidget(this, HUDClass);
+		UUserWidget* MinimapWidget = CreateWidget(this, MinimapClass);
 		if (HUDWidget != nullptr)
 		{
 			HUDWidget->AddToViewport();

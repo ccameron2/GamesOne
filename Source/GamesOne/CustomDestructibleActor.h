@@ -23,11 +23,10 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION()
 		void OnFracture(const FVector& HitPoint, const FVector& HitDirection);
+
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AAmmoActor> AmmoClass;
 };

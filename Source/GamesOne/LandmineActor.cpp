@@ -29,12 +29,6 @@ void ALandmineActor::BeginPlay()
 	
 }
 
-// Called every frame
-void ALandmineActor::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-
 void ALandmineActor::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
 	UE_LOG(LogTemp, Warning, TEXT("OnHit"));

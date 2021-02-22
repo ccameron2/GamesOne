@@ -46,7 +46,7 @@ void ABarrelActor::BeginPlay()
 void ABarrelActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//Add actor rotation for consistent speed spin
+	//Add actor rotation for consistent spin speed
 	FRotator Rotator = FRotator(0.0f, 1.0f, 0.0f);
 	AddActorLocalRotation(Rotator);
 

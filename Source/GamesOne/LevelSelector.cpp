@@ -29,17 +29,11 @@ void ALevelSelector::BeginPlay()
 	Super::BeginPlay();
 	//Create dynamic delegates for overlap events
 	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &ALevelSelector::OnOverlapBegin);
-	BoxComponent->OnComponentEndOverlap.AddDynamic(this, &ALevelSelector::OnOverlapEnd);
 	//Spawn spark actor slightly above selector mesh
 	ASparks* Spark;
 	Spark = GetWorld()->SpawnActor<ASparks>(SparkClass, this->GetActorLocation() + FVector(0.0f, 0.0f, 40.0f), this->GetActorRotation());
 }
 
-// Called every frame
-void ALevelSelector::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
 
 void ALevelSelector::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
@@ -49,10 +43,5 @@ void ALevelSelector::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor*
 		//Open designated level
 		UGameplayStatics::OpenLevel(GetWorld(), LevelName);
 	}
-}
-
-void ALevelSelector::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-{
-	UE_LOG(LogTemp, Warning, TEXT("OnOverlapEnd"));
 }
 

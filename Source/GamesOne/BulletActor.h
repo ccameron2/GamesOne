@@ -26,7 +26,6 @@ public:
 	UPROPERTY(EditAnywhere)
 		float MovementSpeed = 300.0f;
 
-
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* BulletMesh;
 

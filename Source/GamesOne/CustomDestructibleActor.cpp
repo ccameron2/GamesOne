@@ -20,12 +20,6 @@ void ACustomDestructibleActor::BeginPlay()
 	OnActorFracture.AddDynamic(this, &ACustomDestructibleActor::OnFracture);
 }
 
-// Called every frame
-void ACustomDestructibleActor::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-
 void ACustomDestructibleActor::OnFracture(const FVector& HitPoint, const FVector& HitDirection)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Shattered"));
