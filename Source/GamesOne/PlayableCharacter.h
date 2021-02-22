@@ -108,6 +108,12 @@ private:
 	UPROPERTY(EditAnywhere)
 		USoundBase* HitSound;
 
+	UPROPERTY(EditAnywhere)
+		float CastRange = 10000.0f;
+
+	UPROPERTY(EditAnywhere)
+		float impulseForce = 1000.0f;
+
 
 
 };

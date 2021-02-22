@@ -9,11 +9,13 @@
 ALevelSelector::ALevelSelector()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
+	//Create LevelSelector Mesh and set as root component
 	SelectorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Selector Mesh"));
-	SelectorMesh->SetupAttachment(RootComponent);
+	SetRootComponent(SelectorMesh);
 
+	//Create box component for overlap events and attach to root component
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Component"));
 	BoxComponent->SetBoxExtent(FVector(60.0f, 60.0f, 30.0f));
 	BoxComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
@@ -25,24 +27,26 @@ ALevelSelector::ALevelSelector()
 void ALevelSelector::BeginPlay()
 {
 	Super::BeginPlay();
+	//Create dynamic delegates for overlap events
 	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &ALevelSelector::OnOverlapBegin);
 	BoxComponent->OnComponentEndOverlap.AddDynamic(this, &ALevelSelector::OnOverlapEnd);
+	//Spawn spark actor slightly above selector mesh
 	ASparks* Spark;
-	Spark = GetWorld()->SpawnActor<ASparks>(SparkClass, this->GetActorLocation() + FVector(0.0f, 0.0f, 100.0f), this->GetActorRotation());
+	Spark = GetWorld()->SpawnActor<ASparks>(SparkClass, this->GetActorLocation() + FVector(0.0f, 0.0f, 40.0f), this->GetActorRotation());
 }
 
 // Called every frame
 void ALevelSelector::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void ALevelSelector::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	UE_LOG(LogTemp, Warning, TEXT("OnOverlapBegin"));
-	if (Cast<APlayableCharacter>(OtherActor))
+	if (Cast<APlayableCharacter>(OtherActor))//If other actor is a playable character
 	{
+		//Open designated level
 		UGameplayStatics::OpenLevel(GetWorld(), LevelName);
 	}
 }

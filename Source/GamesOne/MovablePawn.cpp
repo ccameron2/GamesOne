@@ -23,6 +23,7 @@ AMovablePawn::AMovablePawn()
 	SpringArm->SetRelativeRotation((new FRotator(-30, 0.0f, 0.0f))->Quaternion());
 	SpringArm->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
 
+	// Create Camera and attach to Springarm
 	Camera = CreateAbstractDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
 

@@ -46,8 +46,6 @@ void ABarrelActor::BeginPlay()
 void ABarrelActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//add upwards force to barrel every tick
-	BarrelMesh->AddForce(FVector(0.0f,0.0f, ForceAmount * BarrelMesh->GetMass()));
 	//Add actor rotation for consistent speed spin
 	FRotator Rotator = FRotator(0.0f, 1.0f, 0.0f);
 	AddActorLocalRotation(Rotator);

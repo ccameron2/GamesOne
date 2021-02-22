@@ -8,7 +8,7 @@
 ACustomDestructibleActor::ACustomDestructibleActor()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	//Create box component for overlap events and attach to root componenet.
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Component"));

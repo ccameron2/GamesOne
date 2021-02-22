@@ -8,6 +8,8 @@ ASparks::ASparks()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	//Create particle system component and attach to root component
 	Sparks = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Sparks Particle Component"));
 	Sparks->SetupAttachment(RootComponent);
 }
@@ -22,6 +24,7 @@ void ASparks::BeginPlay()
 void ASparks::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	//Activate effect every tick
 	Sparks->Activate();
 }
 
